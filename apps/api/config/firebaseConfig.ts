@@ -12,8 +12,13 @@ if (process.env.NODE_ENV === 'production') {
   db = admin.firestore();
 
 } else { 
-    admin.initializeApp({}); 
+    admin.initializeApp({ projectId: "backend-repo-b2133" }); 
     db = admin.firestore();
+    db.settings({
+      host: 'localhost:8080', // Firestore emulator host and port
+      ssl: false,
+    });
+    console.log('Using the local firebase emulator');
 }
 
 
