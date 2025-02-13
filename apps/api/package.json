@@ -4,7 +4,7 @@
   "main": "app.ts",
   "scripts": {
     "start": "node dist/server.js", 
-    "dev": "nodemon core/app.ts", 
+    "dev": "nodemon core/app.ts --turbopack --port 3003", 
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
