@@ -17,5 +17,11 @@ router.post('/', (req, res, next) => {
     userControllers.createUser(req, res, next);
 });
 
+router.post('/update', (req, res, next) => {
+    const userRepository = new UserRepository();
+    const userControllers = new UserController(userRepository);
+    userControllers.updateUser(req, res, next);
+});
+
 
 export const userRoutes = router;

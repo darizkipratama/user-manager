@@ -22,9 +22,18 @@ export class UserController {
     async createUser(req: Request, res: Response, next: NextFunction) {
         try{
             let newUser:UserModel = req.body;
-            console.log(newUser);
             const createdUser = await this.userRepository.createUser(newUser);
             res.status(201).json(createdUser);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async updateUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            let updatedUser:UserModel = req.body;
+            const result = await this.userRepository.updateUser(updatedUser);
+            res.json(result);
         } catch (error) {
             next(error);
         }

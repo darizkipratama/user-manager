@@ -3,16 +3,14 @@ import { Request, Response, NextFunction } from 'express';
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers['authorization'];
-
+  const simpleToken = "$3cr3tT0k3n";
   if (!token) {
     return res.status(401).json({ message: 'No token provided' });
   }
 
-  try {
-    // const decoded = verifyToken(token); // Verify the token
-    // req.user = decoded; // Attach the decoded user to the request object
+  if(token === simpleToken) {
     next();
-  } catch (error) {
+  } else {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 };
