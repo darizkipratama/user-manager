@@ -1,11 +1,17 @@
+"use client";
 import React from 'react';
 import { Typography, Box } from '@mui/material';
-import { useAuth } from '../../context/auth.js';
-import Button from '../atoms/Button.js';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '../../context/auth';
+import Button from '../atoms/Button';
 
 const AuthInformation: React.FC = () => {
   const { isAuthenticated, logout } = useAuth();
+  const router = useRouter();
 
+  function handleClickLogin(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
+    router.push('/login'); 
+  }
   return (
     <Box sx={{ mb: 4 }}>
       {isAuthenticated ? (
@@ -14,7 +20,15 @@ const AuthInformation: React.FC = () => {
           <Button label="Logout" variant="contained" color="secondary" onClick={logout} />
         </>
       ) : (
-        <Typography variant="h6">You are not logged in.</Typography>
+        <>
+          <Typography variant="h6" component="h2" gutterBottom>
+            Please log in to continue.
+          </Typography>
+          <Typography variant="body1" paragraph>
+            This application requires authentication.  Please log in using the button below to access the application.
+          </Typography>
+          <Button label="Login" variant="contained" color="primary" onClick={handleClickLogin}/>
+        </>
       )}
     </Box>
   );

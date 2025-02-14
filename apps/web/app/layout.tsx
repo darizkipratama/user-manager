@@ -1,5 +1,4 @@
 "use client";
-
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
