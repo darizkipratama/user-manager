@@ -19,7 +19,13 @@ const UserList: React.FC = () => {
     // Fetch users from an API or other source
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/users');
+        const response = await fetch('http://localhost:3000/api/users', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer $3cr3tT0k3n'
+          }
+        });
         const data = await response.json();
         dispatch(setUsers(data));
       } catch (error) {

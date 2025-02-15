@@ -4,7 +4,8 @@ import Input from '../atoms/Input';
 import Button from '../atoms/Button';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../store/userSlice';
-import { User } from '@repo/models/user'; // Adjust the import path as needed
+import { useAuth } from '../../context/auth';
+import { User } from '@repo/models/user'; 
 
 interface EditUserFormProps {
     user: User;
@@ -19,6 +20,7 @@ const EditUserForm: React.FC<EditUserFormProps> = (
     }
 ) => {
   const dispatch = useDispatch();
+  const { isAuthenticated } = useAuth();
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
   const [error, setError] = useState('');
@@ -40,6 +42,7 @@ const EditUserForm: React.FC<EditUserFormProps> = (
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer $3cr3tT0k3n'
             },
             body: JSON.stringify(updatedUser),  
         });
@@ -55,27 +58,32 @@ const EditUserForm: React.FC<EditUserFormProps> = (
   };
 
   return (
-    <Paper elevation={3} sx={{ padding: 4, maxWidth: 400, margin: 'auto', mt: 8 }}>
-      <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Typography variant="h5" align="center">Edit User</Typography>
-        {error && <Typography color="error" align="center">{error}</Typography>}
-        <Input
-          label="Name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <Input
-          label="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Button label="Save" variant="contained" color="primary" type="submit" />
-      </Box>
-    </Paper>
+    
+      <Paper elevation={3} sx={{ padding: 4, maxWidth: 400, margin: 'auto', mt: 8 }}>
+        {isAuthenticated ? (
+        <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Typography variant="h5" align="center">Edit User</Typography>
+          {error && <Typography color="error" align="center">{error}</Typography>}
+          <Input
+            label="Name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <Input
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <Button label="Save" variant="contained" color="primary" type="submit" />
+        </Box>
+      ) : (
+        <></>
+      )}
+      </Paper>
   );
 };
 

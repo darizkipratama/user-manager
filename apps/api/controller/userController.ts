@@ -15,7 +15,7 @@ export class UserController {
             const users = await this.userRepository.getAllUsers();
             res.json(users);
         } catch (error) {
-            next(error); // Pass errors to the error handling middleware
+            next(error);
         } 
     }
     

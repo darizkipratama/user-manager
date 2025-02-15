@@ -24,7 +24,7 @@ const AuthInformation: React.FC = () => {
           <Typography variant="h6" component="h2" gutterBottom>
             Please log in to continue.
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1">
             This application requires authentication.  Please log in using the button below to access the application.
           </Typography>
           <Button label="Login" variant="contained" color="primary" onClick={handleClickLogin}/>
